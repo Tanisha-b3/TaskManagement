@@ -4,7 +4,7 @@ import { getTasks, updateTaskStatus, deleteTask } from '../services/api';
 import TaskList from '../Tasks/TaskList';
 import Loader from '../components/Loader';
 
-const Tasks = ({ onEditTask, onNewTask }) => {
+const Tasks = ({ refreshKey, onEditTask, onNewTask }) => {
   const [loading, setLoading] = useState(true);
   const [tasks, setTasks] = useState([]);
   const [pagination, setPagination] = useState({
@@ -14,8 +14,8 @@ const Tasks = ({ onEditTask, onNewTask }) => {
   });
 
   useEffect(() => {
-    fetchTasks();
-  }, []);
+  fetchTasks();
+}, [refreshKey]); // 🔥 THIS IS THE REAL FIX
 
   const fetchTasks = async (filters = {}) => {
     setLoading(true);

@@ -59,7 +59,7 @@ function App() {
                     <main className="flex-1 overflow-y-auto bg-background">
                       <Routes>
                         <Route key={refreshKey} path="/dashboard" element={<Dashboard onEditTask={openEditTaskDialog} />} />
-                        <Route key={refreshKey} path="/tasks" element={<Tasks onEditTask={openEditTaskDialog} onNewTask={openNewTaskDialog} />} />
+                        <Route key={refreshKey} path="/tasks" element={<Tasks refreshKey={refreshKey} onEditTask={openEditTaskDialog} onNewTask={openNewTaskDialog} />} />
                         <Route path="/calendar" element={<Calendar />} />
                         <Route path="/analytics" element={<Analytics />} />
                         <Route path="/settings" element={<Settings />} />

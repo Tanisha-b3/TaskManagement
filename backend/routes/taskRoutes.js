@@ -7,8 +7,8 @@ import {
   updateTask,
   deleteTask,
   getTaskStats
-} from '../controllers/taskController.js';
-import { protect } from '../middleware/authMiddleware.js';
+} from '../controllers/TaskController.js';
+import { protect } from '../middleware/AuthMiddleware.js';
 
 const router = express.Router();
 

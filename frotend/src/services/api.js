@@ -74,7 +74,7 @@ export const getTasks = async (params = {}) => {
 
 export const getTaskById = async (taskId) => {
   const response = await api.get(`/tasks/${taskId}`);
-  return response.data;
+  return response.data.task;
 };
 
 export const createTask = async (taskData) => {
@@ -93,7 +93,7 @@ export const deleteTask = async (taskId) => {
 };
 
 export const updateTaskStatus = async (taskId, status) => {
-  const response = await api.patch(`/tasks/${taskId}/status`, { status });
+  const response = await api.put(`/tasks/${taskId}`, { status });
   return response.data;
 };
 

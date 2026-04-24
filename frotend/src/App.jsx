@@ -13,14 +13,15 @@ import Calendar from './Pages/Calendar';
 import Analytics from './Pages/Analytics';
 import Settings from './Pages/Settings';
 import Help from './Pages/Help';
-import TaskForm from './Tasks/TaskForm';
 import TaskFormDialog from './Tasks/TaskFormDialog';
+// import TaskFormDialog from './Tasks/TaskFormDialog';
 import { Toaster } from 'react-hot-toast';
 
 function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [taskDialogOpen, setTaskDialogOpen] = useState(false);
   const [editingTaskId, setEditingTaskId] = useState(null);
+  const [refreshKey, setRefreshKey] = useState(0);
 
   const openNewTaskDialog = () => {
     setEditingTaskId(null);
@@ -30,6 +31,10 @@ function App() {
   const openEditTaskDialog = (taskId) => {
     setEditingTaskId(taskId);
     setTaskDialogOpen(true);
+  };
+
+  const handleTaskSuccess = () => {
+    setRefreshKey(k => k + 1);
   };
 
   return (
@@ -53,15 +58,15 @@ function App() {
                     />
                     <main className="flex-1 overflow-y-auto bg-background">
                       <Routes>
-                        <Route path="/dashboard" element={<Dashboard onEditTask={openEditTaskDialog} />} />
-                        <Route path="/tasks" element={<Tasks onEditTask={openEditTaskDialog} onNewTask={openNewTaskDialog} />} />
+                        <Route key={refreshKey} path="/dashboard" element={<Dashboard onEditTask={openEditTaskDialog} />} />
+                        <Route key={refreshKey} path="/tasks" element={<Tasks onEditTask={openEditTaskDialog} onNewTask={openNewTaskDialog} />} />
                         <Route path="/calendar" element={<Calendar />} />
                         <Route path="/analytics" element={<Analytics />} />
                         <Route path="/settings" element={<Settings />} />
                         <Route path="/help" element={<Help />} />
-                        <Route path="/tasks/new" element={<TaskForm />} />
-                        <Route path="/tasks/edit/:id" element={<TaskForm />} />
-                        <Route path="/" element={<Dashboard onEditTask={openEditTaskDialog} />} />
+                        <Route path="/tasks/new" element={<TaskFormDialog />} />
+                        <Route path="/tasks/edit/:id" element={<TaskFormDialog />} />
+                        <Route key={refreshKey} path="/" element={<Dashboard onEditTask={openEditTaskDialog} />} />
                       </Routes>
                     </main>
                   </div>
@@ -70,6 +75,7 @@ function App() {
                   open={taskDialogOpen}
                   onOpenChange={setTaskDialogOpen}
                   taskId={editingTaskId}
+                  onSuccess={handleTaskSuccess}
                 />
               </ProtectedRoute>
             }

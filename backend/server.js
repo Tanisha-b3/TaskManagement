@@ -10,7 +10,9 @@ import { errorHandler } from './middleware/errorMiddleware.js';
 dotenv.config();
 
 const app = express();
-
+app.get('/', (req, res) => {
+  res.send('Welcome to the Task Management API');
+});
 // Security middleware
 app.use(helmet());
 app.use(cors({

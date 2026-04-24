@@ -232,9 +232,9 @@ const Calendar = () => {
               <div className="space-y-3">
                 {getTasksForDate(selectedDate).map(task => (
                   <div 
-                    key={task._id || task.id} 
+                    key={task.id} 
                     className="flex items-center gap-3 p-3 rounded-lg bg-accent hover:bg-accent/80 transition-colors cursor-pointer"
-                    onClick={() => window.location.href = `/tasks/edit/${task._id}`}
+                    onClick={() => window.location.href = `/tasks/edit/${task.id}`}
                   >
                     <div className={`w-3 h-3 rounded-full ${getPriorityColor(task.priority)}`} />
                     <div className="flex-1">
@@ -251,7 +251,7 @@ const Calendar = () => {
                       )}
                     </div>
                     <Button variant="ghost" size="sm" asChild>
-                      <a href={`/tasks/edit/${task._id}`}>View</a>
+                      <a href={`/tasks/edit/${task.id}`}>View</a>
                     </Button>
                   </div>
                 ))}
@@ -274,7 +274,7 @@ const Calendar = () => {
                 .sort((a, b) => new Date(a.dueDate) - new Date(b.dueDate))
                 .slice(0, 5)
                 .map(task => (
-                  <div key={task._id} className="flex items-center justify-between p-2">
+                  <div key={task.id} className="flex items-center justify-between p-2">
                     <div className="flex items-center gap-3">
                       <div className={`w-2 h-2 rounded-full ${getPriorityColor(task.priority)}`} />
                       <span className="font-medium">{task.title}</span>

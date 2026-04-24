@@ -42,7 +42,7 @@ const taskSchema = z.object({
   dueDate: z.date().optional().nullable(),
 });
 
-const TaskFormDialog = ({ open, onOpenChange, taskId }) => {
+const TaskFormDialog = ({ open, onOpenChange, taskId, onSuccess }) => {
   const navigate = useNavigate();
   const isEditing = !!taskId;
   const [loading, setLoading] = useState(false);
@@ -88,10 +88,10 @@ const TaskFormDialog = ({ open, onOpenChange, taskId }) => {
     setLoading(true);
     try {
       const task = await getTaskById(taskId);
-      setValue('title', task.title);
+      setValue('title', task.title || '');
       setValue('description', task.description || '');
-      setValue('status', task.status);
-      setValue('priority', task.priority);
+      setValue('status', task.status || 'pending');
+      setValue('priority', task.priority || 'medium');
       setValue('dueDate', task.dueDate ? new Date(task.dueDate) : null);
     } catch (error) {
       toast.error('Failed to load task');
@@ -111,6 +111,7 @@ const TaskFormDialog = ({ open, onOpenChange, taskId }) => {
         await createTask(data);
         toast.success('Task created successfully');
       }
+      if (onSuccess) onSuccess();
       onOpenChange(false);
     } catch (error) {
       toast.error(error.response?.data?.message || 'Failed to save task');
@@ -163,8 +164,8 @@ const TaskFormDialog = ({ open, onOpenChange, taskId }) => {
               <div className="space-y-2">
                 <Label>Status</Label>
                 <Select
+                  value={watch('status')}
                   onValueChange={(value) => setValue('status', value)}
-                  defaultValue="pending"
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select status" />
@@ -180,8 +181,8 @@ const TaskFormDialog = ({ open, onOpenChange, taskId }) => {
               <div className="space-y-2">
                 <Label>Priority</Label>
                 <Select
+                  value={watch('priority')}
                   onValueChange={(value) => setValue('priority', value)}
-                  defaultValue="medium"
                 >
                   <SelectTrigger>
                     <SelectValue placeholder="Select priority" />

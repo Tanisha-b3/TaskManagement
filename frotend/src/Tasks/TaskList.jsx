@@ -148,7 +148,7 @@ const TaskList = ({ tasks, onStatusChange, onEdit, onDelete, onFilter, onNewTask
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {tasks.map((task) => (
             <TaskCard
-              key={task._id}
+              key={task.id}
               task={task}
               onStatusChange={onStatusChange}
               onEdit={onEdit}

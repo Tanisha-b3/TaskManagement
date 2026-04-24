@@ -54,7 +54,7 @@ const Tasks = ({ onEditTask, onNewTask }) => {
 
   const handleEditTask = (task) => {
     if (onEditTask) {
-      onEditTask(task._id);
+      onEditTask(task.id);
     }
   };
 
@@ -71,7 +71,10 @@ const Tasks = ({ onEditTask, onNewTask }) => {
       onEdit={handleEditTask}
       onDelete={handleDeleteTask}
       onFilter={handleFilter}
-      onNewTask={onNewTask}
+     onNewTask={() => {
+  if (onNewTask) onNewTask();
+  fetchTasks(); // 🔥 THIS FIXES YOUR ISSUE
+}}
     />
   );
 };

@@ -77,7 +77,7 @@ const TaskCard = ({ task, onStatusChange, onEdit, onDelete }) => {
               <Edit2 className="mr-2 h-4 w-4" />
               Edit
             </DropdownMenuItem>
-            <DropdownMenuItem onClick={() => onDelete(task._id)} className="text-red-600">
+            <DropdownMenuItem onClick={() => onDelete(task.id)} className="text-red-600">
               <Trash2 className="mr-2 h-4 w-4" />
               Delete
             </DropdownMenuItem>
@@ -103,7 +103,7 @@ const TaskCard = ({ task, onStatusChange, onEdit, onDelete }) => {
 
         <select
           value={task.status}
-          onChange={(e) => onStatusChange(task._id, e.target.value)}
+          onChange={(e) => onStatusChange(task.id, e.target.value)}
           className="text-sm border rounded-md px-2 py-1 bg-background"
         >
           <option value="pending">Pending</option>
